@@ -2,6 +2,7 @@ provider "azurerm" {
   features {}
 }
 
+
 # Groupe de ressources
 resource "azurerm_resource_group" "cr460_group" {
   name     = "CR460"
