@@ -29,6 +29,9 @@ resource "azurerm_linux_virtual_machine" "cr460_vm" {
   network_interface_ids = [azurerm_network_interface.cr460_nic.id]
 
   admin_username = "userCR460"  
+
+  disable_password_authentication = false
+  
   admin_password = "Password1234!"
 
   os_disk {
