@@ -1,5 +1,7 @@
 provider "azurerm" {
   features {}
+  subscription_id = var.${{ secrets.AZURE_SUBSCRIPTION_ID }}
+  tenant_id       = var.${{ secrets.AZURE_TENANT_ID }}
 }
 
 # Groupe de ressources
