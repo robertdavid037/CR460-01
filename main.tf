@@ -67,6 +67,30 @@ resource "azurerm_network_interface" "cr460_nic" {
 resource "azurerm_subnet" "cr460_subnet" {
   name                 = "CR460-Subnet"
   resource_group_name  = azurerm_resource_group.cr460_group.name
+
+# Docker
+resource "azurerm_container_group" "Docker460" {
+  name                = "CR460-Docker"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  os_type             = "Linux"
+ 
+  container {
+    name   = "Docker460"
+    image  = "mcr.microsoft.com/azuredocs/aci-helloworld"
+    cpu    = "1"
+    memory = "1"
+ 
+    ports {
+      port     = 80
+      protocol = "TCP"
+    }
+  }
+ 
+  tags = {
+    environment = "testing"
+  }
+}
   virtual_network_name = azurerm_virtual_network.cr460_vnet.name
   address_prefixes     = ["10.0.1.0/24"]
 }
