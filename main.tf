@@ -71,3 +71,27 @@ resource "azurerm_subnet" "cr460_subnet" {
 virtual_network_name = azurerm_virtual_network.cr460_vnet.name
   address_prefixes     = ["10.0.1.0/24"]
 }
+
+# Azure Container Instance (Docker)
+resource "azurerm_container_group" "cr460_container" {
+  name                = "cr460-docker-container"
+  location            = azurerm_resource_group.cr460_group.location
+  resource_group_name = azurerm_resource_group.cr460_group.name
+  os_type             = "Linux"
+
+  container {
+    name   = "cr460-container"
+    image  = "nginx:latest" # Change "nginx" to the image you want
+    cpu    = "0.5"
+    memory = "1.5"
+
+    ports {
+      port     = 80
+      protocol = "TCP"
+    }
+  }
+
+  tags = {
+    environment = "testing"
+  }
+}
